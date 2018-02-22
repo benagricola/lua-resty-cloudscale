@@ -120,6 +120,7 @@ function Cloudscale:authenticate(stdin)
 
         if not ok then
             ngx_log(ERR, 'Cloudscale: Unable to connect to sockexec on path ', sockexec_path, ': ', err)
+            instances:delete(regex_value)
             return nil, "sockexec error"
         end
 
