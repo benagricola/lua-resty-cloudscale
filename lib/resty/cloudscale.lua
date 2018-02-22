@@ -110,7 +110,7 @@ function Cloudscale:authenticate(stdin)
     end
 
     -- Lock process by attempting to add the current time to the shared dict as its name
-    local ok, err = instances:safe_add(data_value, ngx_now())
+    local ok, err = instances:safe_add(regex_value, ngx_now())
 
     -- Process did not exist so lets spawn it
     if ok then
