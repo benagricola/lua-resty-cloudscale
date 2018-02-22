@@ -124,6 +124,8 @@ function Cloudscale:authenticate(stdin)
         end
 
         -- Interpolate command values
+        -- Add header value to interp
+        data_value['header_value'] = regex_value
         for int, arg in ipairs(command) do
             command[int] = interp(arg, data_value)
         end
