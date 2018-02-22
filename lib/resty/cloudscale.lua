@@ -83,9 +83,16 @@ function Cloudscale:authenticate(stdin)
 
     local headers = ngx.req.get_headers()
 
+    local target_header = headers[header]
+
+    if not target_header then
+        ngx_log(ERR, 'Cloudscale: Header ', header, ' not found in request')
+        return nil, "no header found"
+    end
+
     -- Regex out value of given header. Return nil if request 
     -- does not contain valid header, or matching regex
-    local regex_output = ngx.re.match(headers[header], header_regex, 'jo')
+    local regex_output = ngx.re.match(target_header, header_regex, 'jo')
     if not regex_output then
         ngx_log(ERR, 'Cloudscale: Unable to find match for ', header_regex, ' in header ', header)
         return nil, "no regex match"
