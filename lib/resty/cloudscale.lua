@@ -150,7 +150,7 @@ function Cloudscale:authenticate(stdin)
         end
     end
     -- Update LRU value
-    local ok, err = instances:replace(data_value, ngx_now())
+    local ok, err = instances:replace(regex_value, ngx_now())
 
     if not ok then
         ngx_log(ERR, 'Cloudscale: Error updating instance LRU for value ', regex_value, ': ', err)
