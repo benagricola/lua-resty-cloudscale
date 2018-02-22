@@ -11,10 +11,8 @@ local tbl_concat   = table.concat
 
 local exec_socket  = require('resty.exec.socket') 
 
-local function interp(s, tab)
-  return (s:gsub('%%%((%a%w*)%)([-0-9%.]*[cdeEfgGiouxXsq])',
-            function(k, fmt) return tab[k] and ("%"..fmt):format(tab[k]) or
-                '%('..k..')'..fmt end))
+function interp(s, tab)
+    return (s:gsub('($%b{})', function(w) return tab[w:sub(3, -2)] or w end))
 end
 
 -- Auth proxy Public Interface
